@@ -1,11 +1,16 @@
 
-
-fn main() {
-    println!("{} plus 2 is: {}", 7, add_two_with_inner_func(7));
-
-    println!("{} using ThatOne: {}", 7, get_either_adder(AdderSpec::ThatOne)(7));
-    println!("{} using TheOtherOne: {}", 7, get_either_adder(AdderSpec::TheOtherOne)(7));
+#[test]
+fn inner_functions_exist() {
+    assert_eq!(9, add_two_with_inner_func(7));
 }
+
+#[test]
+fn inner_functions_can_be_returned_as_function_pointers() {
+    assert_eq!(14, get_either_adder(AdderSpec::ThatOne)(7));
+    assert_eq!(7, get_either_adder(AdderSpec::TheOtherOne)(7));
+}
+
+
 
 fn add_two_with_inner_func(i: u8) -> u8 {
     fn add_two(e: u8) -> u8 {
