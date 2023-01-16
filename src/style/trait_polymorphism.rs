@@ -1,3 +1,4 @@
+#![allow(unused)]
 
 struct Sedan;
 impl LandCapable for Sedan {
@@ -6,7 +7,6 @@ impl LandCapable for Sedan {
     }
 }
 
-
 struct SUV;
 impl LandCapable for SUV {
     fn drive(&self) {
@@ -14,26 +14,32 @@ impl LandCapable for SUV {
     }
 }
 
-
 trait LandCapable {
     fn drive(&self);
 }
 
-fn road_trip(vehicle: &dyn LandCapable) {
+/// Demonstrates dynamic dispatch
+fn dyn_road_trip(vehicle: &dyn LandCapable) {
     vehicle.drive();
 }
 
+/// Demonstrates static dispatch
+fn static_road_trip(vehicle: &impl LandCapable) {
+    vehicle.drive();
+}
 
 #[cfg(test)]
 mod test {
-    use super::{road_trip, Sedan, SUV};
+    use super::{dyn_road_trip, Sedan, SUV, static_road_trip};
 
     #[test]
     fn drives() {
-        let sedan = Sedan{};
-        let suv = SUV{};
-
-        road_trip(&sedan);
-        road_trip(&suv);
+        let sedan = Sedan {};
+        dyn_road_trip(&sedan);
+        static_road_trip(&sedan);
+        
+        let suv = SUV {};
+        dyn_road_trip(&suv);
+        static_road_trip(&suv);
     }
 }
