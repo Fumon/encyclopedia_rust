@@ -1,4 +1,6 @@
 #![allow(unused)]
+//! Rage, rage against the usage of the heap
+
 
 fn div_two_iter(a: impl Iterator<Item = i32>) -> impl Iterator<Item = i32> {
     a.map(|n| n / 2)
