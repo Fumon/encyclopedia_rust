@@ -28,18 +28,25 @@ fn static_road_trip(vehicle: &impl LandCapable) {
     vehicle.drive();
 }
 
+/// Static polymorpic dispatch via generic
+fn static_gen_road_trip<T: LandCapable>(vehicle: &T) {
+    vehicle.drive();
+}
+
 #[cfg(test)]
 mod test {
-    use super::{dyn_road_trip, Sedan, SUV, static_road_trip};
+    use super::{dyn_road_trip, Sedan, SUV, static_road_trip, static_gen_road_trip};
 
     #[test]
     fn drives() {
         let sedan = Sedan {};
         dyn_road_trip(&sedan);
         static_road_trip(&sedan);
+        static_gen_road_trip(&sedan);
         
         let suv = SUV {};
         dyn_road_trip(&suv);
         static_road_trip(&suv);
+        static_gen_road_trip(&suv);
     }
 }
